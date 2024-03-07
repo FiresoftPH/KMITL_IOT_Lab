@@ -12,6 +12,7 @@ class myLora(LoRa):
         self.set_mode(MODE.SLEEP)
         self.set_dio_mapping([0] * 6)
         self.set_pa_config(pa_select=1)
+        self.val = 0
 
     def on_rx_done(self):
         self.clear_irq_flags(RxDone=1)
@@ -28,7 +29,8 @@ class myLora(LoRa):
 
     def start(self):
         while True:
-            info = input("Enter your name: ")
+            info = "Pattarapark"
+            info = "Hello from LoRa "+ info + " No. " + str(self.val)
             self.val = self.val + 1
             print("Sending: ", info, "\n")
 
@@ -47,10 +49,10 @@ class myLora(LoRa):
 lora = myLora(verbose=False)
 
 lora.set_pa_config(pa_select=1, max_power=21, output_power=15)
-lora.set_freq(421.2) # From 420.0 to 480.0
+lora.set_freq(450) # From 420.0 to 480.0
 lora.set_bw(BW.BW250)
 lora.set_coding_rate(CODING_RATE.CR4_5)
-lora.set_spreading_factor(7)
+lora.set_spreading_factor(10)
 lora.set_rx_crc(True)
 lora.set_low_data_rate_optim(True)
 
